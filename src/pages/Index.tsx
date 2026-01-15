@@ -7,7 +7,7 @@ import { BookingSection } from "@/components/BookingSection";
 import { ReviewsSection } from "@/components/ReviewsSection";
 import { ContactsSection } from "@/components/ContactsSection";
 import { Footer } from "@/components/Footer";
-import { WhatsAppButton } from "@/components/WhatsAppButton";
+import { TelegramButton } from "@/components/TelegramButton";
 
 const Index = () => {
   return (
@@ -21,7 +21,7 @@ const Index = () => {
       <ReviewsSection />
       <ContactsSection />
       <Footer />
-      <WhatsAppButton />
+      <TelegramButton />
     </main>
   );
 };

@@ -148,10 +148,10 @@ export const ContactsSection = () => {
                 variant="pine"
                 size="lg"
                 className="w-full sm:w-auto"
-                onClick={() => window.open("https://wa.me/79139999999", "_blank")}
+                onClick={() => window.open("https://t.me/uteskatuni", "_blank")}
               >
                 <MessageCircle className="mr-2" />
-                Написать в WhatsApp
+                Написать в Telegram
               </Button>
             </motion.div>
           </motion.div>

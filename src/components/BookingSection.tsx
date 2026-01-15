@@ -183,12 +183,10 @@ export const BookingSection = () => {
               variant="pine"
               className="flex-1"
               onClick={() => {
-                const phone = "79139999999";
-                const text = `Здравствуйте! Хочу забронировать отдых.\nЗаезд: ${checkIn && format(checkIn, "d.MM.yyyy")}\nВыезд: ${checkOut && format(checkOut, "d.MM.yyyy")}\nГостей: ${guests}`;
-                window.open(`https://wa.me/${phone}?text=${encodeURIComponent(text)}`, "_blank");
+                window.open("https://t.me/uteskatuni", "_blank");
               }}
             >
-              Написать в WhatsApp
+              Написать в Telegram
             </Button>
           </div>
         </DialogContent>
