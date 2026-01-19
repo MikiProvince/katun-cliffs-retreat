@@ -8,13 +8,16 @@ import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogDescription } f
 import roomDeluxe from "@/assets/room-deluxe.jpg";
 import roomStandard from "@/assets/room-standard.jpg";
 import roomFamily from "@/assets/room-family.jpg";
+import roomDouble1 from "@/assets/room-double-1.jpg";
+import roomDouble2 from "@/assets/room-double-2.jpg";
 
 const rooms = [
   {
     id: 1,
     name: "Двуместный номер",
     description: "В номере 1 двуспальная кровать, санузел (душ, туалет, набор саше), Wi-Fi, холодильник и чайник, ТВ. Из номера открывается вид на реку и горы. На террасе возле каждого номера есть стол со стульями.",
-    image: roomStandard,
+    image: roomDouble1,
+    images: [roomDouble1, roomDouble2],
     price: 4300,
     capacity: 2,
     size: 12.5,
