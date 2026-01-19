@@ -1,22 +1,22 @@
 import { motion } from "framer-motion";
 import { useInView } from "framer-motion";
 import { useRef, useState } from "react";
-import { Users, Maximize, Wifi, Coffee, Wind, Eye } from "lucide-react";
+import { Users, Maximize, Wifi, Coffee, Eye, ChevronLeft, ChevronRight } from "lucide-react";
 import { Button } from "./ui/button";
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogDescription } from "./ui/dialog";
 
 import roomDeluxe from "@/assets/room-deluxe.jpg";
-import roomStandard from "@/assets/room-standard.jpg";
 import roomFamily from "@/assets/room-family.jpg";
 import roomDouble1 from "@/assets/room-double-1.jpg";
 import roomDouble2 from "@/assets/room-double-2.jpg";
+import roomFamily1 from "@/assets/room-family-1.jpg";
+import roomFamily2 from "@/assets/room-family-2.jpg";
 
 const rooms = [
   {
     id: 1,
     name: "Двуместный номер",
     description: "В номере 1 двуспальная кровать, санузел (душ, туалет, набор саше), Wi-Fi, холодильник и чайник, ТВ. Из номера открывается вид на реку и горы. На террасе возле каждого номера есть стол со стульями.",
-    image: roomDouble1,
     images: [roomDouble1, roomDouble2],
     price: 4300,
     capacity: 2,
@@ -28,7 +28,7 @@ const rooms = [
     id: 2,
     name: "Семейный номер с балконом",
     description: "Большие панорамные окна, уютная терраса с видом на реку и горы. 2-спальная кровать + диван (доп. место). Wi-Fi, холодильник, чайник, ТВ, фен, гардероб. Санузел с душем. Доп. детское место: до 3 лет — бесплатно, 3-10 лет — 500₽, от 10 лет — 1000₽.",
-    image: roomDeluxe,
+    images: [roomFamily1, roomFamily2],
     price: 5000,
     capacity: 4,
     size: 17,
@@ -39,7 +39,7 @@ const rooms = [
     id: 3,
     name: "Люкс",
     description: "Большой балкон с панорамными окнами и мебелью под ротанг. 2-спальная кровать + диван (доп. место). Wi-Fi, ТВ, фен, шкаф. Мини-кухня: холодильник, чайник, микроволновка, мультиварка. Санузел с душем. Доп. детское место: до 3 лет — бесплатно, 3-10 лет — 500₽, от 10 лет — 1000₽.",
-    image: roomFamily,
+    images: [roomFamily, roomDeluxe],
     price: 6000,
     capacity: 4,
     size: 23,
@@ -48,10 +48,88 @@ const rooms = [
   },
 ];
 
+// Room Image Carousel Component
+const RoomImageCarousel = ({ 
+  images, 
+  name, 
+  className = "" 
+}: { 
+  images: string[]; 
+  name: string; 
+  className?: string;
+}) => {
+  const [currentIndex, setCurrentIndex] = useState(0);
+
+  const nextImage = (e: React.MouseEvent) => {
+    e.stopPropagation();
+    setCurrentIndex((prev) => (prev + 1) % images.length);
+  };
+
+  const prevImage = (e: React.MouseEvent) => {
+    e.stopPropagation();
+    setCurrentIndex((prev) => (prev - 1 + images.length) % images.length);
+  };
+
+  return (
+    <div className={`relative overflow-hidden ${className}`}>
+      <img
+        src={images[currentIndex]}
+        alt={`${name} - фото ${currentIndex + 1}`}
+        className="w-full h-full object-cover transition-all duration-500"
+      />
+      
+      {images.length > 1 && (
+        <>
+          {/* Navigation Buttons */}
+          <button
+            onClick={prevImage}
+            className="absolute left-2 top-1/2 -translate-y-1/2 w-8 h-8 rounded-full bg-white/80 hover:bg-white flex items-center justify-center shadow-md transition-all opacity-0 group-hover:opacity-100"
+            aria-label="Предыдущее фото"
+          >
+            <ChevronLeft size={18} className="text-foreground" />
+          </button>
+          <button
+            onClick={nextImage}
+            className="absolute right-2 top-1/2 -translate-y-1/2 w-8 h-8 rounded-full bg-white/80 hover:bg-white flex items-center justify-center shadow-md transition-all opacity-0 group-hover:opacity-100"
+            aria-label="Следующее фото"
+          >
+            <ChevronRight size={18} className="text-foreground" />
+          </button>
+          
+          {/* Dots Indicator */}
+          <div className="absolute bottom-3 left-1/2 -translate-x-1/2 flex gap-1.5">
+            {images.map((_, index) => (
+              <button
+                key={index}
+                onClick={(e) => {
+                  e.stopPropagation();
+                  setCurrentIndex(index);
+                }}
+                className={`w-2 h-2 rounded-full transition-all ${
+                  index === currentIndex 
+                    ? "bg-white w-4" 
+                    : "bg-white/60 hover:bg-white/80"
+                }`}
+                aria-label={`Перейти к фото ${index + 1}`}
+              />
+            ))}
+          </div>
+        </>
+      )}
+    </div>
+  );
+};
+
 export const RoomsSection = () => {
   const ref = useRef(null);
   const isInView = useInView(ref, { once: true, margin: "-100px" });
   const [selectedRoom, setSelectedRoom] = useState<typeof rooms[0] | null>(null);
+  const [modalImageIndex, setModalImageIndex] = useState(0);
+
+  const openRoom = (room: typeof rooms[0]) => {
+    setSelectedRoom(room);
+    setModalImageIndex(0);
+  };
 
   return (
     <section id="rooms" className="section-padding bg-white" ref={ref}>
@@ -85,15 +163,12 @@ export const RoomsSection = () => {
               transition={{ duration: 0.6, delay: 0.2 + index * 0.1 }}
               className="bg-cream rounded-lg overflow-hidden shadow-card hover-lift group"
             >
-              {/* Image */}
-              <div className="relative h-64 overflow-hidden">
-                <img
-                  src={room.image}
-                  alt={room.name}
-                  className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
-                />
-                <div className="absolute inset-0 bg-gradient-to-t from-foreground/40 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
-              </div>
+              {/* Image Carousel */}
+              <RoomImageCarousel 
+                images={room.images} 
+                name={room.name} 
+                className="h-64"
+              />
 
               {/* Content */}
               <div className="p-6">
@@ -139,7 +214,7 @@ export const RoomsSection = () => {
                   <Button
                     variant="pine"
                     size="sm"
-                    onClick={() => setSelectedRoom(room)}
+                    onClick={() => openRoom(room)}
                   >
                     Подробнее
                   </Button>
@@ -155,13 +230,51 @@ export const RoomsSection = () => {
         <DialogContent className="max-w-2xl">
           {selectedRoom && (
             <>
-              <div className="relative h-64 -mx-6 -mt-6 mb-6 overflow-hidden rounded-t-lg">
+              {/* Modal Image Carousel */}
+              <div className="relative h-72 -mx-6 -mt-6 mb-6 overflow-hidden rounded-t-lg group">
                 <img
-                  src={selectedRoom.image}
-                  alt={selectedRoom.name}
-                  className="w-full h-full object-cover"
+                  src={selectedRoom.images[modalImageIndex]}
+                  alt={`${selectedRoom.name} - фото ${modalImageIndex + 1}`}
+                  className="w-full h-full object-cover transition-all duration-500"
                 />
+                
+                {selectedRoom.images.length > 1 && (
+                  <>
+                    {/* Navigation Buttons */}
+                    <button
+                      onClick={() => setModalImageIndex((prev) => (prev - 1 + selectedRoom.images.length) % selectedRoom.images.length)}
+                      className="absolute left-3 top-1/2 -translate-y-1/2 w-10 h-10 rounded-full bg-white/80 hover:bg-white flex items-center justify-center shadow-md transition-all"
+                      aria-label="Предыдущее фото"
+                    >
+                      <ChevronLeft size={20} className="text-foreground" />
+                    </button>
+                    <button
+                      onClick={() => setModalImageIndex((prev) => (prev + 1) % selectedRoom.images.length)}
+                      className="absolute right-3 top-1/2 -translate-y-1/2 w-10 h-10 rounded-full bg-white/80 hover:bg-white flex items-center justify-center shadow-md transition-all"
+                      aria-label="Следующее фото"
+                    >
+                      <ChevronRight size={20} className="text-foreground" />
+                    </button>
+                    
+                    {/* Dots Indicator */}
+                    <div className="absolute bottom-4 left-1/2 -translate-x-1/2 flex gap-2">
+                      {selectedRoom.images.map((_, index) => (
+                        <button
+                          key={index}
+                          onClick={() => setModalImageIndex(index)}
+                          className={`w-2.5 h-2.5 rounded-full transition-all ${
+                            index === modalImageIndex 
+                              ? "bg-white w-5" 
+                              : "bg-white/60 hover:bg-white/80"
+                          }`}
+                          aria-label={`Перейти к фото ${index + 1}`}
+                        />
+                      ))}
+                    </div>
+                  </>
+                )}
               </div>
+              
               <DialogHeader>
                 <DialogTitle className="font-display text-2xl">
                   {selectedRoom.name}
