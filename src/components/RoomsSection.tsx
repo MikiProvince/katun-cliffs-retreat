@@ -51,7 +51,7 @@ export const RoomsSection = () => {
   const [selectedRoom, setSelectedRoom] = useState<typeof rooms[0] | null>(null);
 
   return (
-    <section id="rooms" className="section-padding bg-sand" ref={ref}>
+    <section id="rooms" className="section-padding bg-white" ref={ref}>
       <div className="container-custom">
         {/* Section Header */}
         <motion.div

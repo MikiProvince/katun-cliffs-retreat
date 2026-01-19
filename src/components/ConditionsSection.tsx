@@ -67,8 +67,17 @@ export const ConditionsSection = () => {
   const isInView = useInView(ref, { once: true, margin: "-100px" });
 
   return (
-    <section className="section-padding bg-sand" ref={ref}>
-      <div className="container-custom">
+    <section className="section-padding bg-gradient-to-b from-sand/50 to-cream relative overflow-hidden" ref={ref}>
+      {/* Decorative top border */}
+      <div className="absolute top-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-pine/20 to-transparent" />
+      
+      {/* Decorative background */}
+      <div className="absolute inset-0 opacity-10">
+        <div className="absolute top-20 right-10 w-72 h-72 bg-graphite rounded-full blur-[100px]" />
+        <div className="absolute bottom-20 left-10 w-72 h-72 bg-pine rounded-full blur-[100px]" />
+      </div>
+      
+      <div className="container-custom relative z-10">
         {/* Section Header */}
         <motion.div
           initial={{ opacity: 0, y: 30 }}
