@@ -7,16 +7,12 @@ import gallery1 from "@/assets/gallery-1.jpg";
 import gallery2 from "@/assets/gallery-2.jpg";
 import gallery3 from "@/assets/gallery-3.jpg";
 import gallery4 from "@/assets/gallery-4.jpg";
-import heroImage from "@/assets/hero-katun.jpg";
-import roomDeluxe from "@/assets/room-deluxe.jpg";
 
 const galleryImages = [
   { src: gallery1, alt: "Терраса с видом на реку", span: "col-span-2 row-span-2" },
   { src: gallery2, alt: "Утренний чай с видом на горы", span: "col-span-1 row-span-1" },
   { src: gallery4, alt: "Закат над долиной", span: "col-span-1 row-span-2" },
   { src: gallery3, alt: "Каякинг на Катуни", span: "col-span-1 row-span-1" },
-  { src: heroImage, alt: "Река Катунь", span: "col-span-1 row-span-1" },
-  { src: roomDeluxe, alt: "Интерьер номера", span: "col-span-1 row-span-1" },
 ];
 
 export const GallerySection = () => {
