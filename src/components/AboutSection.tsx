@@ -31,7 +31,7 @@ export const AboutSection = () => {
   const isInView = useInView(ref, { once: true, margin: "-100px" });
 
   return (
-    <section id="about" className="section-padding bg-cream" ref={ref}>
+    <section id="about" className="section-padding bg-white" ref={ref}>
       <div className="container-custom">
         {/* Section Header */}
         <motion.div
