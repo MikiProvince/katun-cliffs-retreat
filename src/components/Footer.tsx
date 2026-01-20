@@ -68,7 +68,14 @@ export const Footer = () => {
             <ul className="space-y-3">
               <li className="flex items-start gap-3">
                 <MapPin size={18} className="flex-shrink-0 mt-0.5" />
-                <span>Чемал, Набережная, 35а</span>
+                <a 
+                  href="https://yandex.ru/maps/-/CLhxFW8t" 
+                  target="_blank" 
+                  rel="noopener noreferrer"
+                  className="hover:text-cream transition-colors"
+                >
+                  Чемал, Набережная, 35а
+                </a>
               </li>
               <li className="flex items-center gap-3">
                 <Phone size={18} />
