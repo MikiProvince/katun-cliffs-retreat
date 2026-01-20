@@ -32,7 +32,7 @@ export const Footer = () => {
                 className="w-10 h-10 rounded-full bg-cream/10 hover:bg-pine transition-colors flex items-center justify-center overflow-hidden"
               >
                 <img 
-                  src="https://upload.wikimedia.org/wikipedia/commons/thumb/7/75/Max_logo_2025.png/120px-Max_logo_2025.png" 
+                  src="https://github.com/MikiProvince/katun-cliffs-retreat/blob/main/src/assets/Max_logo.png" 
                   alt="Max" 
                   className="w-6 h-6 object-contain"
                 />
