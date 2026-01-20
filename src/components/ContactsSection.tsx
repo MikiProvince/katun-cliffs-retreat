@@ -9,13 +9,13 @@ const contactInfo = [
     icon: MapPin,
     title: "Адрес",
     content: "Республика Алтай, с. Чемал, ул. Набережная, 35а",
-    link: "https://yandex.ru/maps/-/CDrWmW4r",
+    link: "https://yandex.ru/maps/-/CLhxFW8t",
   },
   {
     icon: Phone,
     title: "Телефон",
-    content: "+7 (913) 999-99-99",
-    link: "tel:+79139999999",
+    content: "+7 (923) 535-42-45",
+    link: "tel:+79235354245",
   },
   {
     icon: Mail,
